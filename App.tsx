@@ -20,7 +20,7 @@ export default function App() {
         initialRouteName="Bem-vindo"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
-            let iconName: string;
+            let iconName: keyof typeof Ionicons.glyphMap;
 
             switch (route.name) {
               case 'Bem-vindo':
@@ -42,8 +42,7 @@ export default function App() {
                 iconName = 'help-outline';
             }
 
-
-            return <Ionicons name={iconName as any} size={size} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: '#4CAF50',
           tabBarInactiveTintColor: 'gray',
