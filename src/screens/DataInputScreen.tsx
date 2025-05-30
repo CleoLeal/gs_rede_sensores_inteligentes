@@ -1,6 +1,5 @@
-// src/screens/DataInputScreen.tsx
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import { saveMonitoringData } from '../../storage/storage';
 import styles from '../styles/StyleScreen.styles';
 
@@ -55,7 +54,7 @@ export default function DataInputScreen() {
         onChangeText={setSlope}
         placeholder="Ex: 20"
       />
-      <Button title="Salvar Dados" onPress={handleSave} color="#4CAF50" />
+      <Button title="Salvar Dados" onPress={handleSave} color="#9370DB" />
     </View>
   );
 }

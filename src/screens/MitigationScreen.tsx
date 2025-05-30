@@ -1,6 +1,6 @@
 // screens/MitigationScreen.tsx
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Linking, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Linking, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../styles/StyleScreen.styles'; // Importando os estilos
 

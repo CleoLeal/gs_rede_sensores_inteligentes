@@ -1,10 +1,9 @@
-// src/types/types.ts
-export type MonitoringData = {
-  date: string;
-  soilMoisture: number;
-  slope: number;
-  riskLevel: 'Baixo' | 'Médio' | 'Alto';
-};
+export interface MonitoringData {
+  timestamp: string;
+  umidadeSolo: number;
+  inclinacao: number;
+  riskLevel?: 'Baixo' | 'Médio' | 'Alto';
+}
 
 export type RootTabParamList = {
   'Bem-vindo': undefined;

@@ -44,23 +44,50 @@ export default function App() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: '#4CAF50',
+          tabBarActiveTintColor: '#4B0082',
           tabBarInactiveTintColor: 'gray',
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#4CAF50',
+            backgroundColor: '#4B0082',
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          tabBarStyle: {
+            height: 70,
+            paddingBottom: 10,
+            paddingTop: 5,
+            marginBottom: 10,
+            backgroundColor: '#fff',
+          },
         })}
       >
-        <Tab.Screen name="Bem-vindo" component={WelcomeScreen} />
-        <Tab.Screen name="Inserir Dados" component={DataInputScreen} />
-        <Tab.Screen name="Visualizar Riscos" component={RiskViewScreen} />
-        <Tab.Screen name="Histórico" component={HistoryScreen} />
-        <Tab.Screen name="Ações" component={MitigationScreen} />
+        <Tab.Screen 
+          name="Bem-vindo" 
+          component={WelcomeScreen} 
+          options={{ tabBarLabel: 'Home' }}
+        />
+        <Tab.Screen 
+          name="Inserir Dados" 
+          component={DataInputScreen} 
+          options={{ tabBarLabel: 'Inserir' }}
+        />
+        <Tab.Screen 
+          name="Visualizar Riscos" 
+          component={RiskViewScreen} 
+          options={{ tabBarLabel: 'Visualizar' }}
+        />
+        <Tab.Screen 
+          name="Histórico" 
+          component={HistoryScreen} 
+          options={{ tabBarLabel: 'Histórico' }}
+        />
+        <Tab.Screen 
+          name="Ações" 
+          component={MitigationScreen} 
+          options={{ tabBarLabel: 'Ação' }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

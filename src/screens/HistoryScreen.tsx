@@ -1,6 +1,7 @@
 // src/screens/HistoryScreen.tsx
-import React, { useEffect, useState } from 'react';
-import { View, Text, Button, FlatList, StyleSheet, Alert } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, Button, FlatList, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { MonitoringData, getMonitoringHistory, clearMonitoringData } from '../../storage/storage';
 import styles from '../styles/StyleScreen.styles';
 
@@ -18,9 +19,11 @@ export default function HistoryScreen() {
     setHistory([]);
   };
 
-  useEffect(() => {
-    loadHistory();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      loadHistory();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
