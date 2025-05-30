@@ -1,3 +1,4 @@
+// src/storage/storage.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type MonitoringData = {
@@ -7,14 +8,33 @@ export type MonitoringData = {
   riskLevel: 'Baixo' | 'Médio' | 'Alto';
 };
 
+const STORAGE_KEY = '@monitoring_data';
+
 export const saveMonitoringData = async (data: MonitoringData) => {
-  const stored = await AsyncStorage.getItem('@monitoring_data');
-  const parsed = stored ? JSON.parse(stored) : [];
-  parsed.push(data);
-  await AsyncStorage.setItem('@monitoring_data', JSON.stringify(parsed));
+  try {
+    const stored = await AsyncStorage.getItem(STORAGE_KEY);
+    const parsed: MonitoringData[] = stored ? JSON.parse(stored) : [];
+    parsed.push(data);
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+  } catch (error) {
+    console.error('Erro ao salvar dados:', error);
+  }
 };
 
 export const getMonitoringHistory = async (): Promise<MonitoringData[]> => {
-  const stored = await AsyncStorage.getItem('@monitoring_data');
-  return stored ? JSON.parse(stored) : [];
+  try {
+    const stored = await AsyncStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (error) {
+    console.error('Erro ao obter histórico:', error);
+    return [];
+  }
+};
+
+export const clearMonitoringData = async () => {
+  try {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+  } catch (error) {
+    console.error('Erro ao limpar dados:', error);
+  }
 };

@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Linking, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import styles from '../styles/StyleScreen.styles'; // Importando os estilos
 
 export default function MitigationScreen() {
   const openLink = (url: string) => {
@@ -71,65 +72,3 @@ export default function MitigationScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    padding: 20,
-    backgroundColor: '#F0F8FF',
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    textAlign: 'center',
-    color: '#333',
-  },
-  section: {
-    backgroundColor: '#FFF',
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-  },
-  icon: {
-    marginBottom: 10,
-    alignSelf: 'center',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 15,
-    color: '#333',
-    textAlign: 'center',
-    width: '100%',
-  },
-  itemText: {
-    fontSize: 16,
-    marginBottom: 8,
-    color: '#555',
-  },
-  boldText: {
-    fontWeight: 'bold',
-  },
-  linkButton: {
-    backgroundColor: '#0056b3',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  linkButtonText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
