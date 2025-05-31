@@ -1,4 +1,4 @@
-// src/screens/RiskViewScreen.tsx
+//importações necessárias
 import React, { useState, useCallback } from 'react';
 import { View, Text } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -6,8 +6,10 @@ import { getMonitoringHistory, MonitoringData } from '../../storage/storage';
 import styles from '../styles/StyleScreen.styles';
 
 export default function RiskViewScreen() {
+  // estado para armazenar os dados mais recentes de monitoramento
   const [latestData, setLatestData] = useState<MonitoringData | null>(null);
-
+  
+  // função para carregar os dados mais recentes de monitoramento
   const loadLatest = async () => {
     const history = await getMonitoringHistory();
     if (history.length > 0) {
@@ -17,12 +19,14 @@ export default function RiskViewScreen() {
     }
   };
 
+  // efeito para carregar os dados mais recentes quando a tela é focada
   useFocusEffect(
     useCallback(() => {
       loadLatest();
     }, [])
   );
 
+  // renderização do componente para exibir o nível de risco atual
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nível de Risco Atual</Text>

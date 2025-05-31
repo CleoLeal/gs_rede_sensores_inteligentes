@@ -1,4 +1,4 @@
-// src/screens/HistoryScreen.tsx
+//importações necessárias
 import React, { useState, useCallback } from 'react';
 import { View, Text, Button, FlatList, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
@@ -6,25 +6,29 @@ import { MonitoringData, getMonitoringHistory, clearMonitoringData } from '../..
 import styles from '../styles/StyleScreen.styles';
 
 export default function HistoryScreen() {
+  // estado para armazenar o histórico de monitoramento
   const [history, setHistory] = useState<MonitoringData[]>([]);
-
+  
+  // função para carregar o histórico de monitoramento
   const loadHistory = async () => {
     const data = await getMonitoringHistory();
     setHistory(data);
   };
 
+  // função para limpar os dados de monitoramento
   const handleClear = async () => {
     await clearMonitoringData();
     Alert.alert('Sucesso', 'Dados excluídos!');
     setHistory([]);
   };
 
+  // efeito para carregar o histórico quando a tela é focada
   useFocusEffect(
     useCallback(() => {
       loadHistory();
     }, [])
   );
-
+  // renderização do componente
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Histórico de Monitoramento</Text>

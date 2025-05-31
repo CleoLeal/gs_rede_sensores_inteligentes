@@ -1,11 +1,13 @@
+//importações necessárias
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { View, Text, TextInput, Button } from 'react-native';
 import { saveMonitoringData } from '../../storage/storage';
 import styles from '../styles/StyleScreen.styles';
 
 export default function DataInputScreen() {
   const [soilMoisture, setSoilMoisture] = useState('');
   const [slope, setSlope] = useState('');
+  const [error, setError] = useState('');
 
   const calculateRiskLevel = (moisture: number, slope: number): 'Baixo' | 'Médio' | 'Alto' => {
     if (moisture > 80 && slope > 30) return 'Alto';
@@ -14,14 +16,39 @@ export default function DataInputScreen() {
   };
 
   const handleSave = async () => {
-    const moistureNum = Number(soilMoisture);
-    const slopeNum = Number(slope);
+    setError(''); // limpa erro anterior
 
-    if (isNaN(moistureNum) || isNaN(slopeNum)) {
-      Alert.alert('Erro', 'Por favor, insira valores numéricos válidos.');
+    // validação dos campos de entrada
+    if (soilMoisture.trim() === '' || slope.trim() === '') {
+      setError('Todos os campos devem ser preenchidos.');
       return;
     }
 
+    // conversão dos valores de entrada para números e validação
+    const moistureNum = Number(soilMoisture);
+    const slopeNum = Number(slope);
+
+    // verifica se os valores são números válidos
+    if (
+      isNaN(moistureNum) || isNaN(slopeNum) ||
+      !/^\d+(\.\d+)?$/.test(soilMoisture) || !/^\d+(\.\d+)?$/.test(slope)
+    ) {
+      setError('Por favor, insira apenas números válidos.');
+      return;
+    }
+
+    // verifica se os valores estão dentro dos limites esperados
+    if (moistureNum < 0 || moistureNum > 100) {
+      setError('A umidade do solo deve estar entre 0% e 100%.');
+      return;
+    }
+
+    // verifica se a inclinação do solo está dentro dos limites esperados
+    if (slopeNum < 0 || slopeNum > 90) {
+      setError('A inclinação do solo deve estar entre 0° e 90°.');
+      return;
+    }
+    // calcula o nível de risco e salva os dados
     const riskLevel = calculateRiskLevel(moistureNum, slopeNum);
     const data = {
       date: new Date().toLocaleString(),
@@ -29,14 +56,14 @@ export default function DataInputScreen() {
       slope: slopeNum,
       riskLevel,
     };
-
+    // chama a função para salvar os dados
     await saveMonitoringData(data);
-    Alert.alert('Sucesso', 'Dados salvos com sucesso!');
     setSoilMoisture('');
     setSlope('');
+    setError('');
   };
-
   return (
+    // componente para entrada de dados e botão de envio
     <View style={styles.container}>
       <Text style={styles.label}>Umidade do Solo (%)</Text>
       <TextInput
@@ -44,16 +71,18 @@ export default function DataInputScreen() {
         keyboardType="numeric"
         value={soilMoisture}
         onChangeText={setSoilMoisture}
-        placeholder="Ex: 70"
+        placeholder="Ex: 90"
       />
+
       <Text style={styles.label}>Inclinação do Solo (°)</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"
         value={slope}
         onChangeText={setSlope}
-        placeholder="Ex: 20"
+        placeholder="Ex: 30"
       />
+      {error !== '' && <Text style={{ color: 'red', marginBottom: 10 }}>{error}</Text>}
       <Button title="Salvar Dados" onPress={handleSave} color="#9370DB" />
     </View>
   );

@@ -1,27 +1,31 @@
+//importações necessárias 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
+//screens
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import DataInputScreen from './src/screens/DataInputScreen';
 import RiskViewScreen from './src/screens/RiskViewScreen';
 import HistoryScreen from './src/screens/HistoryScreen';
 import MitigationScreen from './src/screens/MitigationScreen';
-
+//rota
 import { RootTabParamList } from './src/types/types';
 
+//criando uma instância do Tab Navigator
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+      // Configurando o Tab Navigator
         initialRouteName="Bem-vindo"
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             let iconName: keyof typeof Ionicons.glyphMap;
-
+            // definindo o ícone com base na rota de cada screen
             switch (route.name) {
               case 'Bem-vindo':
                 iconName = 'home-outline';
@@ -41,7 +45,7 @@ export default function App() {
               default:
                 iconName = 'help-outline';
             }
-
+            // retornando o ícone correspondente
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: '#4B0082',

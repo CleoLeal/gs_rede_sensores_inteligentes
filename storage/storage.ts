@@ -1,6 +1,7 @@
-// src/storage/storage.ts
+//importando
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+//storage para armazenar dados de monitoramento
 export type MonitoringData = {
   date: string;
   soilMoisture: number;
@@ -10,6 +11,7 @@ export type MonitoringData = {
 
 const STORAGE_KEY = '@monitoring_data';
 
+//storage para salvar dados de monitoramento
 export const saveMonitoringData = async (data: MonitoringData) => {
   try {
     const stored = await AsyncStorage.getItem(STORAGE_KEY);
@@ -21,6 +23,7 @@ export const saveMonitoringData = async (data: MonitoringData) => {
   }
 };
 
+//storage para obter histórico de monitoramento
 export const getMonitoringHistory = async (): Promise<MonitoringData[]> => {
   try {
     const stored = await AsyncStorage.getItem(STORAGE_KEY);
@@ -31,6 +34,7 @@ export const getMonitoringHistory = async (): Promise<MonitoringData[]> => {
   }
 };
 
+//storage para limpar dados de monitoramento
 export const clearMonitoringData = async () => {
   try {
     await AsyncStorage.removeItem(STORAGE_KEY);

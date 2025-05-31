@@ -1,14 +1,16 @@
-// screens/MitigationScreen.tsx
+// importações necessárias	
 import React from 'react';
 import { View, Text, ScrollView, Linking, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import styles from '../styles/StyleScreen.styles'; // Importando os estilos
 
 export default function MitigationScreen() {
+  // função para abrir links externos
   const openLink = (url: string) => {
     Linking.openURL(url).catch((err) => console.error('Não foi possível abrir a URL', err));
   };
 
+  // renderização do componente onde explica as ações de mitigação e prevenção
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Ações de Mitigação e Prevenção</Text>
@@ -63,7 +65,7 @@ export default function MitigationScreen() {
 
       <TouchableOpacity
         style={styles.linkButton}
-        onPress={() => openLink('http://www.defesacivil.gov.br')}
+        onPress={() => openLink('https://www.defesacivil.sp.gov.br/')}
       >
         <Text style={styles.linkButtonText}>Acesse o site da Defesa Civil</Text>
         {/* CORREÇÃO AQUI */}
